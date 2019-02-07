@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="qliroone" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>QliroOne Checkout</label>
+
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+
+                <field id="debug" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Debug Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="eager_checkout_refresh" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Eager Checkout Refresh</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <group id="api" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+
+                    <label>General Module Settings</label>
+
+                    <field id="geoip" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Geo IP</label>
+                        <comment>GeoIP mode will only detect the country if corresponding extension is installed on the server. Otherwise the country selected as website default country in System Configuration will always be used.</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="logging" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Logging Level</label>
+                        <source_model>Qliro\QliroOne\Model\Config\Source\LogLevels</source_model>
+                    </field>
+
+                    <field id="order_status" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>New Order Status</label>
+                        <source_model>Magento\Sales\Model\Config\Source\Order\Status\NewStatus</source_model>
+                    </field>
+
+                    <field id="allowspecific" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Payment from Applicable Countries</label>
+                        <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                    </field>
+
+                    <field id="shipping_countries" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Payment from Specific Countries</label>
+
+                        <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+
+                        <depends>
+                            <field id="allowspecific">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="capture_on_shipment" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Trigger capture when shipment is created</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>This will also auto create invoice if capture was successful</comment>
+                    </field>
+
+                    <field id="capture_on_invoice" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Trigger capture when invoice is created</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>This will only occur if invoice is created before shipment</comment>
+                    </field>
+
+                    <field id="newsletter_signup" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Allow Newsletter Signup</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="require_identity_verification" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Require Identity Verification</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+
+                <group id="qliro_api" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+
+                    <label>Merchant Configuration Settings</label>
+
+                    <field id="type" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>API type</label>
+                        <source_model>Qliro\QliroOne\Model\Config\Source\ApiType</source_model>
+                    </field>
+
+                    <field id="merchant_api_key" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Merchant API Key</label>
+                    </field>
+
+                    <field id="merchant_api_secret" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Merchant API Secret</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    </field>
+
+                    <field id="preset_address" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Preset Shipping Address</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Use store address for shipping methods until the real shipping address is available.</comment>
+                    </field>
+                </group>
+
+                <group id="styling" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+
+                    <label>CSS Styling Input Fields</label>
+
+                    <comment><![CDATA[<p>Note that all colors must be HEX values with a leading # character, and all radii should be specified in pixels without "px" afterwards.</p><p>Only colors with saturation <= 10% are supported. If a color with saturation > 10% is provided, the saturation will be lowered to 10%.</p><p>If any of these values are specified incorrectly, Qliro One won't be able to create order.</p>]]></comment>
+
+                    <field id="background_color" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Background Color</label>
+                        <comment>HEX color code to use as background color in Qliro One.</comment>
+                    </field>
+
+                    <field id="primary_color" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Primary Color</label>
+                        <comment>HEX color code to use as primary color in Qliro One.</comment>
+                    </field>
+
+                    <field id="call_to_action_color" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Call To Action Color</label>
+                        <comment>HEX color code to use as call to action color in Qliro One.</comment>
+                    </field>
+
+                    <field id="call_to_action_hover_color" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Call To Action Hover Color</label>
+                        <comment>HEX color code to use as call to action hover color in Qliro One. If not provided, the hover color will be a blend between the call to action color and the background color.</comment>
+                    </field>
+
+                    <field id="corner_radius" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Corner Radius</label>
+                        <comment>A pixel value to be used on corners throughout Qliro One.</comment>
+                    </field>
+
+                    <field id="button_corner_radius" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Button Corner Radius</label>
+                        <comment>A pixel value to be used on corners of buttons throughout Qliro One.</comment>
+                    </field>
+                </group>
+
+                <group id="merchant" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+
+                    <label>Merchant Specific Information</label>
+
+                    <field id="fee_merchant_reference" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Fee Merchant Reference</label>
+                    </field>
+
+                    <field id="terms_url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Terms URL</label>
+                        <comment><![CDATA[A URL where the customer can find the merchant's terms and conditions. If not specified, will be defaulted to the website base URL. <b>If it is not a proper URL, Qliro One won't be able to create orders.</b>]]></comment>
+                        <validate>validate-url</validate>
+                    </field>
+
+                    <field id="integrity_policy_url" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Integrity Policy URL</label>
+                        <comment><![CDATA[A URL where the customer can find the merchant's integrity policy. <b>If it is not omitted or a proper URL, Qliro One won't be able to create orders.</b>]]></comment>
+                        <validate>validate-url</validate>
+                    </field>
+                </group>
+
+                <group id="callback" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+
+                    <label>Notification Callbacks</label>
+
+                    <field id="xdebug_session_flag_name" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                        <label>XDebug Session Flag Name for callback URLs</label>
+                        <depends>
+                            <field id="payment/qliroone/debug">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="redirect_callbacks" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>Redirect Callbacks</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>To enable debugging of code that require callbacks it's possible to direct the callbacks to a real, public server. These callbacks should be redirected by running the script `ssh -vN -R11222:localhost:80 $server`. $server is the name of the server that receive the callbacks. This process is terminated with ^C.</comment>
+                    </field>
+
+                    <field id="callback_uri" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                        <label>URI Prefix for Callbacks</label>
+                        <validate>validate-url</validate>
+                        <depends>
+                            <field id="redirect_callbacks">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+        </section>
+        <section id="tax">
+            <group id="classes">
+                <field id="qliroone_fee_tax_class" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Tax Class for Payment Fee</label>
+                    <source_model>Magento\Tax\Model\TaxClass\Source\Product</source_model>
+                </field>
+            </group>
+            <group id="calculation">
+                <field id="qliroone_fee_includes_tax" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Payment Fee</label>
+                    <comment>This sets whether payment fees entered in Magento Admin include tax.</comment>
+                    <backend_model>Magento\Tax\Model\Config\Price\IncludePrice</backend_model>
+                    <source_model>Magento\Tax\Model\System\Config\Source\PriceType</source_model>
+                </field>
+            </group>
+            <!-- @todo Improvement for proper module. Make use of these settings -->
+            <group id="cart_display">
+                <field id="qliroone_fee" translate="label" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Payment Fee Prices</label>
+                    <source_model>Magento\Tax\Model\System\Config\Source\Tax\Display\Type</source_model>
+                </field>
+            </group>
+            <group id="sales_display">
+                <field id="qliroone_fee" translate="label" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Payment Fee Prices</label>
+                    <source_model>Magento\Tax\Model\System\Config\Source\Tax\Display\Type</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

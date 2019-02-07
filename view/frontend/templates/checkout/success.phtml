@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+/** @var \Qliro\QliroOne\Block\Checkout\Success $block */
+?>
+
+<div class="success-wrapper">
+    <div class="qliroone-checkout-processed" data-mage-init='{
+        "loader": {
+            "icon": "<?= $block->getViewFileUrl('images/loader-1.gif') ?>",
+            "texts": {
+                "loaderText": "<?= __('Your order is being processed') ?>",
+                "imgAlt": ""
+            }
+        }
+    }'>
+    </div>
+
+    <div class="qliroone-checkout-success" style="display: none">
+        <div class="js-success-header"></div>
+
+        <div id="qliro-html-snippet"></div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        ".success-wrapper": {
+            "pollSuccess": {
+                "isDebug": "<?= $block->isDebug() ? 'true' : 'false' ?>",
+                "pollSuccessUrl": "<?= $block->getPollSuccessUrl()  ?>"
+            }
+        }
+    }
+</script>

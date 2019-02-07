@@ -1,0 +1,95 @@
+.page-layout-qliroone-checkout .opc-payment-additional {
+    width: calc(100% - 48px);
+    max-width: 452px;
+    margin: 0 auto 32px;
+    background: #f8f8f8;
+    padding: 24px 24px 12px;
+}
+
+.page-layout-qliroone-checkout .actions-toolbar {
+    margin: 12px 0;
+}
+
+.page-layout-qliroone-checkout .payment-option-title {
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.page-layout-qliroone-checkout .action-toggle:after {
+    position: relative;
+    display: inline-block;
+    content: '>';
+    font-size: 16px;
+    line-height: 23px;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+.page-layout-qliroone-checkout ._active .action-toggle:after {
+    transform: rotate(90deg);
+}
+
+.checkout-qliro-success .minicart-wrapper {
+    display: none; /* Hide minicart since quote might note be cleared on success */
+}
+
+.qliroone-checkout-processed {
+    text-align: center;
+}
+
+.qliroone-checkout-processed .loading-mask {
+    position: relative;
+}
+
+.qliroone-checkout-processed .loading-mask .loader > img {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.qliroone-checkout-processed .loading-mask .loader > p {
+    font-size: 2.2rem;
+    display: block;
+}
+
+.qliroone-checkout-success {
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+@media only screen and (min-width: 780px) {
+    .page-layout-qliroone-checkout .checkout-container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .page-layout-qliroone-checkout .checkout-container .authentication-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .page-layout-qliroone-checkout .checkout-container .opc-sidebar {
+        width: 100%;
+        float: none;
+        -ms-flex-order: 1;
+        -webkit-order: 1;
+        order: 1;
+    }
+
+    .page-layout-qliroone-checkout .checkout-container .opc-wrapper {
+        width: 100%;
+        float: none;
+        -ms-flex-order: 2;
+        -webkit-order: 2;
+        order: 2;
+    }
+
+    .page-layout-qliroone-checkout .checkout-container .opc-payment-additional .actions-toolbar {
+        margin-left: 0;
+    }
+}

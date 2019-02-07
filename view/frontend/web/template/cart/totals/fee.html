@@ -1,0 +1,14 @@
+<!--
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<!-- ko if: isDisplayed() -->
+<tr class="totals">
+    <th colspan="1" style="" class="mark" scope="row" data-bind="text: getTitle()"></th>
+    <td class="amount" data-bind="attr: {'data-th': title}">
+        <span class="price" data-bind="text: getValue()"></span>
+    </td>
+</tr>
+<!-- /ko -->

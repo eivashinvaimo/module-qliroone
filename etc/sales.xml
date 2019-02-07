@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="qliroone_fee" instance="Qliro\QliroOne\Model\Quote\Address\Total\Fee" sort_order="320"/>
+            <item name="tax_qliroone_fee" instance="Qliro\QliroOne\Model\Quote\Address\Total\Tax" sort_order="400"/>
+        </group>
+    </section>
+    <section name="order_invoice">
+        <group name="totals">
+            <item name="qliroone_fee" instance="Qliro\QliroOne\Model\Order\Total\Invoice\Fee" sort_order="160"/>
+            <item name="tax_qliroone_fee" instance="Qliro\QliroOne\Model\Order\Total\Invoice\Tax" sort_order="220"/>
+        </group>
+    </section>
+    <section name="order_creditmemo">
+        <group name="totals">
+            <item name="qliroone_fee" instance="Qliro\QliroOne\Model\Order\Total\Creditmemo\Fee" sort_order="210"/>
+            <item name="tax_qliroone_fee" instance="Qliro\QliroOne\Model\Order\Total\Creditmemo\Tax" sort_order="260"/>
+        </group>
+    </section>
+</config>

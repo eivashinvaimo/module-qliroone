@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <qliroone>
+                <active>0</active>
+                <model>Qliro\QliroOne\Model\Method\QliroOne</model>
+                <title>QliroOne Checkout Payment</title>
+                <debug>0</debug>
+                <eager_checkout_refresh>0</eager_checkout_refresh>
+                <api>
+                    <geoip>0</geoip>
+                    <logging>100</logging>
+                    <order_status>pending</order_status>
+                    <allowspecific>0</allowspecific>
+                    <capture_on_shipment>1</capture_on_shipment>
+                    <capture_on_invoice>1</capture_on_invoice>
+                    <newsletter_signup>0</newsletter_signup>
+                    <require_identity_verification>0</require_identity_verification>
+                </api>
+                <qliro_api>
+                    <type>sandbox</type>
+                    <merchant_api_key />
+                    <merchant_api_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                    <preset_address>0</preset_address>
+                </qliro_api>
+                <styling>
+                    <background_color>#FFFFFF</background_color>
+                    <primary_color>#A1A1A1</primary_color>
+                    <call_to_action_color>#A5E0AD</call_to_action_color>
+                    <call_to_action_hover_color>#89E0A6</call_to_action_hover_color>
+                    <corner_radius>3</corner_radius>
+                    <button_corner_radius>8</button_corner_radius>
+                </styling>
+                <merchant>
+                    <fee_merchant_reference>InvoiceFee</fee_merchant_reference>
+                </merchant>
+                <callback>
+                    <redirect_callbacks>0</redirect_callbacks>
+                    <callback_uri />
+                    <login_http_notifications>0</login_http_notifications>
+                    <xdebug_session_flag_name>PHPSTORM</xdebug_session_flag_name>
+                </callback>
+
+                <can_order>0</can_order>
+                <can_authorize>0</can_authorize>
+                <can_capture>1</can_capture>
+                <can_capture_partial>1</can_capture_partial>
+                <can_capture_once>0</can_capture_once>
+                <can_refund>1</can_refund>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_cancel>1</can_cancel>
+                <can_void>1</can_void>
+                <can_use_internal>0</can_use_internal>
+                <can_use_checkout>1</can_use_checkout><!--- only true when running as a regular payment method -->
+                <can_edit>0</can_edit>
+                <can_fetch_transaction_information>1</can_fetch_transaction_information>
+                <is_gateway>0</is_gateway>
+                <is_offline>0</is_offline>
+                <can_review_payment>0</can_review_payment>
+            </qliroone>
+        </payment>
+        <tax>
+            <cart_display>
+                <qliroone_fee>2</qliroone_fee>
+            </cart_display>
+            <sales_display>
+                <qliroone_fee>2</qliroone_fee>
+            </sales_display>
+            <calculation>
+                <qliroone_fee_includes_tax>1</qliroone_fee_includes_tax>
+            </calculation>
+        </tax>
+    </default>
+</config>

@@ -1,0 +1,33 @@
+{
+    "name": "qliro/module-qliroone",
+    "type": "library",
+    "description": "QliroOne Checkout",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Andreas Wickberg",
+            "email": "andreas.wickberg@vaimo.com"
+        },
+        {
+            "name": "Eugene Ivashin",
+            "email": "eugene.ivashin@vaimo.com"
+        },
+        {
+            "name": "Kjell Holmkvist",
+            "email": "kjell.holmkvist@vaimo.com"
+        }
+    ],
+    "require": {
+        "ext-json": "*",
+        "magento/framework": "~101.0",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Qliro\\QliroOne\\": ""
+        }
+    }
+}

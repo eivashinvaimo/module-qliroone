@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="qliroOnePing" xsi:type="object">Qliro\QliroOne\Console\PingCommand</item>
+                <item name="qliroOneTest" xsi:type="object">Qliro\QliroOne\Console\TestCommand</item>
+                <item name="qliroOneGetOrder" xsi:type="object">Qliro\QliroOne\Console\GetOrderCommand</item>
+                <item name="qliroOneUpdateOrder" xsi:type="object">Qliro\QliroOne\Console\UpdateOrderCommand</item>
+                <item name="qliroOneLock" xsi:type="object">Qliro\QliroOne\Console\LockCommand</item>
+                <item name="qliroOneUnlock" xsi:type="object">Qliro\QliroOne\Console\UnlockCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\Logger\Handler">
+        <arguments>
+            <argument name="adapter" xsi:type="object">QliroOneAdapter</argument>
+            <argument name="formatter" xsi:type="object">Qliro\QliroOne\Model\Logger\Formatter</argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\Logger\Manager">
+        <arguments>
+            <argument name="psrLogger" xsi:type="object">QliroLogger</argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\Method\QliroOne">
+        <arguments>
+            <argument name="adapter" xsi:type="object">QliroOneAdapter</argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\Config">
+        <arguments>
+            <argument name="adapter" xsi:type="object">QliroOneAdapter</argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\Product\Type\TypePoolHandler">
+        <arguments>
+            <argument name="pool" xsi:type="array">
+                <item name="virtual" xsi:type="object">Qliro\QliroOne\Model\Product\Type\Handler\DefaultHandler</item>
+                <item name="simple" xsi:type="object">Qliro\QliroOne\Model\Product\Type\Handler\DefaultHandler</item>
+                <item name="virtual:configurable" xsi:type="object">Qliro\QliroOne\Model\Product\Type\Handler\ConfigurableHandler</item>
+                <item name="simple:configurable" xsi:type="object">Qliro\QliroOne\Model\Product\Type\Handler\ConfigurableHandler</item>
+                <item name="configurable" xsi:type="null" />
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\QliroOrder\Builder\OrderItemsBuilder">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="applied_rules" xsi:type="object">Qliro\QliroOne\Model\QliroOrder\Builder\Handler\AppliedRulesHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\QliroOrder\Admin\Builder\InvoiceOrderItemsBuilder">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="applied_rules" xsi:type="object">Qliro\QliroOne\Model\QliroOrder\Admin\Builder\Handler\AppliedRulesHandler</item>
+                <item name="shipping_fee" xsi:type="object">Qliro\QliroOne\Model\QliroOrder\Admin\Builder\Handler\ShippingFeeHandler</item>
+                <item name="invoice_fee" xsi:type="object">Qliro\QliroOne\Model\QliroOrder\Admin\Builder\Handler\InvoiceFeeHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\QliroOrder\Admin\Builder\ShipmentOrderItemsBuilder">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="applied_rules" xsi:type="object">Qliro\QliroOne\Model\QliroOrder\Admin\Builder\Handler\AppliedRulesHandler</item>
+                <item name="shipping_fee" xsi:type="object">Qliro\QliroOne\Model\QliroOrder\Admin\Builder\Handler\ShippingFeeHandler</item>
+                <item name="invoice_fee" xsi:type="object">Qliro\QliroOne\Model\QliroOrder\Admin\Builder\Handler\InvoiceFeeHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Qliro\QliroOne\Model\Config\Source\LogLevels">
+        <arguments>
+            <argument name="logger" xsi:type="object">QliroLogger</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="QliroLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">database_logger</argument>
+
+            <argument name="handlers" xsi:type="array">
+                <item name="qliroone_handler" xsi:type="object">Qliro\QliroOne\Model\Logger\Handler</item>
+            </argument>
+
+            <argument name="processors" xsi:type="array">
+                <item name="psr_processor" xsi:type="object">Monolog\Processor\PsrLogMessageProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="QliroOneAdapter" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Qliro\QliroOne\Model\Method\QliroOne::PAYMENT_METHOD_CHECKOUT_CODE</argument>
+            <argument name="valueHandlerPool" xsi:type="object">QliroOneValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">QliroOneValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">QliroOneCommandPool</argument>
+            <argument name="formBlockType" xsi:type="const">Qliro\QliroOne\Model\Method\QliroOne::PAYMENT_METHOD_FORM_BLOCK_TYPE</argument>
+            <argument name="infoBlockType" xsi:type="const">Qliro\QliroOne\Model\Method\QliroOne::PAYMENT_METHOD_INFO_BLOCK_TYPE</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="QliroOneValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">QliroOneConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="QliroOneCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="capture" xsi:type="string">Qliro\QliroOne\Model\Method\QliroOne\Capture</item>
+                <item name="cancel" xsi:type="string">Qliro\QliroOne\Model\Method\QliroOne\Cancel</item>
+                <item name="void" xsi:type="string">Qliro\QliroOne\Model\Method\QliroOne\Cancel</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Qliro\QliroOne\Model\OrderManagementStatus\Update\HandlerPool">
+        <arguments>
+            <argument name="handlerPool" xsi:type="array">
+                <item name="shipment" xsi:type="object">Qliro\QliroOne\Model\OrderManagementStatus\Update\Handler\Shipment</item>
+                <item name="payment" xsi:type="object">Qliro\QliroOne\Model\OrderManagementStatus\Update\Handler\Payment</item>
+                <item name="cancel" xsi:type="object">Qliro\QliroOne\Model\OrderManagementStatus\Update\Handler\Cancel</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="QliroOneConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">QliroOneConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="QliroOneConfig" type="Qliro\QliroOne\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Qliro\QliroOne\Model\Method\QliroOne::PAYMENT_METHOD_CHECKOUT_CODE</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="QliroOneValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <preference for="Qliro\QliroOne\Api\LinkRepositoryInterface" type="Qliro\QliroOne\Model\Link\Repository" />
+    <preference for="Qliro\QliroOne\Api\Data\LinkInterface" type="Qliro\QliroOne\Model\Link" />
+    <preference for="Qliro\QliroOne\Api\LinkSearchResultInterface" type="Qliro\QliroOne\Model\Link\SearchResult" />
+    <preference for="Qliro\QliroOne\Api\OrderManagementStatusRepositoryInterface" type="Qliro\QliroOne\Model\OrderManagementStatus\Repository" />
+    <preference for="Qliro\QliroOne\Api\Data\OrderManagementStatusInterface" type="Qliro\QliroOne\Model\OrderManagementStatus" />
+    <preference for="Qliro\QliroOne\Api\OrderManagementStatusSearchResultInterface" type="Qliro\QliroOne\Model\OrderManagementStatus\SearchResult" />
+    <preference for="Qliro\QliroOne\Api\HashResolverInterface" type="Qliro\QliroOne\Model\QliroOrder\ReferenceHashResolver" />
+    <preference for="Qliro\QliroOne\Api\ShippingMethodBrandResolverInterface" type="Qliro\QliroOne\Model\ShippingMethod\BrandResolver" />
+
+    <preference for="Qliro\QliroOne\Api\Product\TypeSourceItemInterface" type="Qliro\QliroOne\Model\Product\Type\TypeSourceItem" />
+
+    <preference for="Qliro\QliroOne\Api\Client\MerchantInterface" type="Qliro\QliroOne\Model\Api\Client\Merchant" />
+    <preference for="Qliro\QliroOne\Api\Client\OrderManagementInterface" type="Qliro\QliroOne\Model\Api\Client\OrderManagement" />
+
+    <preference for="Qliro\QliroOne\Api\ManagementInterface" type="Qliro\QliroOne\Model\Management" />
+    <preference for="Qliro\QliroOne\Api\LanguageMapperInterface" type="Qliro\QliroOne\Model\LanguageMapper" />
+    <preference for="Qliro\QliroOne\Api\GeoIpResolverInterface" type="Qliro\QliroOne\Model\GeoIp\DefaultResolver" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderCreateRequestInterface" type="Qliro\QliroOne\Model\QliroOrder\CreateRequest" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderUpdateRequestInterface" type="Qliro\QliroOne\Model\QliroOrder\UpdateRequest" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderItemInterface" type="Qliro\QliroOne\Model\QliroOrder\Item" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderCustomerInterface" type="Qliro\QliroOne\Model\QliroOrder\Customer" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderCustomerAddressInterface" type="Qliro\QliroOne\Model\QliroOrder\Address\Address" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderInterface" type="Qliro\QliroOne\Model\QliroOrder" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderPaymentMethodInterface" type="Qliro\QliroOne\Model\QliroOrder\PaymentMethod" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderIdentityVerificationInterface" type="Qliro\QliroOne\Model\QliroOrder\IdentityVerification" />
+    <preference for="Qliro\QliroOne\Api\Data\UpdateShippingMethodsNotificationInterface" type="Qliro\QliroOne\Model\Notification\UpdateShippingMethods" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderShippingMethodInterface" type="Qliro\QliroOne\Model\QliroOrder\ShippingMethod" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderShippingMethodOptionInterface" type="Qliro\QliroOne\Model\QliroOrder\ShippingMethod\Option" />
+    <preference for="Qliro\QliroOne\Api\Data\UpdateShippingMethodsResponseInterface" type="Qliro\QliroOne\Model\Notification\ShippingMethodsResponse" />
+    <preference for="Qliro\QliroOne\Api\Data\ValidateOrderNotificationInterface" type="Qliro\QliroOne\Model\Notification\ValidateOrder" />
+    <preference for="Qliro\QliroOne\Api\Data\ValidateOrderResponseInterface" type="Qliro\QliroOne\Model\Notification\ValidateOrderResponse" />
+    <preference for="Qliro\QliroOne\Api\Data\CheckoutStatusInterface" type="Qliro\QliroOne\Model\Notification\CheckoutStatus" />
+    <preference for="Qliro\QliroOne\Api\Data\CheckoutStatusResponseInterface" type="Qliro\QliroOne\Model\Notification\CheckoutStatusResponse" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderManagementStatusInterface" type="Qliro\QliroOne\Model\Notification\QliroOrderManagementStatus" />
+    <preference for="Qliro\QliroOne\Api\Data\QliroOrderManagementStatusResponseInterface" type="Qliro\QliroOne\Model\Notification\QliroOrderManagementStatusResponse" />
+
+    <preference for="Qliro\QliroOne\Api\Data\AdminOrderInterface" type="Qliro\QliroOne\Model\QliroOrder\Admin\AdminOrdere" />
+    <preference for="Qliro\QliroOne\Api\Data\AdminMarkItemsAsShippedRequestInterface" type="Qliro\QliroOne\Model\QliroOrder\Admin\MarkItemsAsShippedRequest" />
+    <preference for="Qliro\QliroOne\Api\Data\AdminCancelOrderRequestInterface" type="Qliro\QliroOne\Model\QliroOrder\Admin\CancelOrderRequest" />
+    <preference for="Qliro\QliroOne\Api\Data\AdminUpdateItemsRequestInterface" type="Qliro\QliroOne\Model\QliroOrder\Admin\UpdateItemsRequest" />
+    <preference for="Qliro\QliroOne\Api\Data\AdminOrderPaymentTransactionInterface" type="Qliro\QliroOne\Model\QliroOrder\Admin\OrderPaymentTransaction" />
+    <preference for="Qliro\QliroOne\Api\Data\AdminReturnWithItemsRequestInterface" type="Qliro\QliroOne\Model\QliroOrder\Admin\ReturnWithItemsRequest" />
+    <preference for="Qliro\QliroOne\Api\Data\AdminTransactionResponseInterface" type="Qliro\QliroOne\Model\QliroOrder\Admin\TransactionResponse" />
+
+    <preference for="Qliro\QliroOne\Api\SubscriptionInterface" type="Qliro\QliroOne\Model\Newsletter\Subscription" />
+</config>

@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/**
+ * @var $block \Qliro\QliroOne\Block\Form\QliroOne
+ */
+?>
+<fieldset class="admin__fieldset payment-method" id="payment_form_<?php echo $block->escapeHtml($block->getMethodCode()) ?>" style="display: none">
+    <div class="admin__field _required">
+        <label for="id_number" class="admin__field-label"><span><?php echo $block->escapeHtml(__('Identification Number')) ?></span></label>
+        <div class="admin__field-control">
+            <input type="text" id="id_number" name="payment[id_number]"
+                   title="<?php echo $block->escapeHtml(__("Identification Number")) ?>" class="required-entry admin__control-text"
+                   value="<?php /* @noEscape */ echo $block->getInfoData('id_number') ?>"/>
+        </div>
+    </div>
+</fieldset>

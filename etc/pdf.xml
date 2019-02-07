@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Qliro AB. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/pdf_file.xsd">
+    <totals>
+        <total name="qliroone_fee">
+            <title translate="true">Payment Fee</title>
+            <source_field>fee</source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>500</sort_order>
+        </total>
+    </totals>
+</config>
